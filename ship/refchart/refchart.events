@@ -1,0 +1,376 @@
+effects = 
+{ 
+    animations = 
+    { 
+        animation1 = 
+        { 
+            name = "Weapon_Main", 
+            length = 2, 
+            loop = 0, 
+            parent = "", 
+            minimum = 0, 
+            maximum = 0, 
+            markers = { "", },
+        },
+        animation2 = 
+        { 
+            name = "Weapon_SideR", 
+            length = 2, 
+            loop = 0, 
+            parent = "", 
+            minimum = 0, 
+            maximum = 0, 
+            markers = { "", },
+        },
+        animation3 = 
+        { 
+            name = "Weapon_SideL", 
+            length = 2, 
+            loop = 0, 
+            parent = "", 
+            minimum = 0, 
+            maximum = 0, 
+            markers = { "", },
+        },
+        animation4 = 
+        { 
+            name = "Weapon_AAR", 
+            length = 2, 
+            loop = 0, 
+            parent = "", 
+            minimum = 0, 
+            maximum = 0, 
+            markers = { "", },
+        },
+        animation5 = 
+        { 
+            name = "Weapon_AAL", 
+            length = 2, 
+            loop = 0, 
+            parent = "", 
+            minimum = 0, 
+            maximum = 0, 
+            markers = { "", },
+        },
+        animation5 = 
+        { 
+            name = "Death", 
+            length = 2, 
+            loop = 0, 
+            parent = "", 
+            minimum = 0, 
+            maximum = 0, 
+            markers = { "", },
+        },
+}, 
+
+    events = 
+    { 
+--        event1 = 
+--        { 
+--                { "anim", "Weapon_Main", }, 
+--                { "animtime", "0", }, 
+--                { "marker", "Weapon_Main_Position", }, 
+--                { "fx", "Neutron_Beam_Fire_Large", }, 
+--                { "fx_scale", "8", }, 
+--        },
+--        event2 = 
+--        { 
+--                { "anim", "Weapon_SideR", }, 
+--                { "animtime", "0", }, 
+--                { "marker", "Weapon_SideR_Position", }, 
+--                { "fx", "Neutron_Beam_Fire_Medium", }, 
+--                { "fx_scale", "6", }, 
+--        },
+--        event3 = 
+--        { 
+--                { "anim", "Weapon_SideL", }, 
+--                { "animtime", "0", }, 
+--                { "marker", "Weapon_SideL_Position", }, 
+--                { "fx", "Neutron_Beam_Fire_Medium", }, 
+--                { "fx_scale", "6", }, 
+--        },
+--        event4 = 
+--        { 
+--                { "anim", "Weapon_AAR", }, 
+--                { "animtime", "0", }, 
+--                { "marker", "Weapon_AAR_Position", }, 
+--                { "fx", "Neutron_Beam_Fire_Small", }, 
+--                { "fx_scale", "2", }, 
+--        },
+--        event5 = 
+--        { 
+--                { "anim", "Weapon_AAL", }, 
+--                { "animtime", "0", }, 
+--                { "marker", "Weapon_AAL_Position", }, 
+--                { "fx", "Neutron_Beam_Fire_Small", }, 
+--                { "fx_scale", "2", }, 
+--        },
+
+        event23 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0", }, 
+                { "marker", "marker1", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "sound", "EXPLOSION/ACCENTS", }, 
+                { "fx_scale", "1.5", }, 
+            }, 
+        event24 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.025", }, 
+                { "marker", "marker2", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "2", }, 
+            }, 
+        event25 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.05", }, 
+                { "marker", "marker3", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "sound", "Explosion/Small/ETG_Explode_Small_Plasma", }, 
+                { "fx_scale", "3", }, 
+            }, 
+        event26 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.08", }, 
+                { "marker", "marker4", }, 
+                { "fx", "dmg_capital_explosion_large_mushroom", }, 
+                { "sound", "EXPLOSION/STRESSACCENTS", }, 
+                { "fx_scale", "2.5", }, 
+            }, 
+        event27 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.1", }, 
+                { "marker", "marker5", }, 
+                { "fx", "dmg_capital_explosion_large_hull_flare", }, 
+                { "sound", "Explosion/Small/ETG_Explode_Small_Firey", }, 
+                { "fx_scale", "3", }, 
+            }, 
+        event28 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.2", }, 
+                { "marker", "marker6", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "1", }, 
+            }, 
+        event29 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.225", }, 
+                { "marker", "marker7", }, 
+                { "fx", "dmg_capital_explosion_large_hull_flare", }, 
+                { "fx_scale", "1.2", }, 
+            }, 
+        event30 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.25", }, 
+                { "marker", "marker8", }, 
+                { "fx", "dmg_capital_explosion_large_mushroom", }, 
+                { "sound", "Explosion/Small/ETG_Explode_Small_Plasma", }, 
+                { "fx_scale", "1", }, 
+            }, 
+        event31 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.275", }, 
+                { "marker", "marker9", }, 
+                { "fx", "dmg_capital_explosion_large_hull_flare", }, 
+                { "fx_scale", "3", }, 
+            }, 
+        event32 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.3", }, 
+                { "marker", "marker10", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "6", }, 
+            }, 
+        event33 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.4", }, 
+                { "marker", "marker11", }, 
+                { "fx", "dmg_capital_explosion_large_mushroom", }, 
+                { "fx_scale", "5", }, 
+            }, 
+        event34 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.425", }, 
+                { "marker", "marker12", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "2", }, 
+            }, 
+        event35 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.45", }, 
+                { "marker", "marker13", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "sound", "EXPLOSION/MEDIUM/ETG_EXPLODE_MEDIUM_PLASMA", }, 
+                { "fx_scale", "3", }, 
+            }, 
+        event36 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.478", }, 
+                { "marker", "marker14", }, 
+                { "fx", "dmg_capital_explosion_large_hull_flare", }, 
+                { "fx_scale", "4.5", }, 
+            }, 
+        event37 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.5", }, 
+                { "marker", "marker15", }, 
+                { "fx", "dmg_capital_explosion_large_mushroom", }, 
+                { "sound", "Explosion/Large/ETG_Explode_Large_Firey", }, 
+                { "fx_scale", "2", }, 
+            }, 
+        event38 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.6", }, 
+                { "marker", "marker16", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "2.5", }, 
+            }, 
+        event39 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.625", }, 
+                { "marker", "marker17", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "2", }, 
+            }, 
+        event40 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.625", }, 
+                { "marker", "marker18", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "2", }, 
+            }, 
+        event41 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.65", }, 
+                { "marker", "marker19", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "sound", "Explosion/Small/ETG_Explode_Small_Plasma", }, 
+                { "fx_scale", "3", }, 
+            }, 
+        event42 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.675", }, 
+                { "marker", "marker20", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "4.5", }, 
+            }, 
+        event43 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.7", }, 
+                { "marker", "marker21", }, 
+                { "fx", "dmg_capital_explosion_large_mushroom", }, 
+                { "sound", "Explosion/Small/ETG_Explode_Small_Firey", }, 
+                { "fx_scale", "4", }, 
+            }, 
+        event44 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.3", }, 
+                { "marker", "marker22", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "2", }, 
+            }, 
+        event45 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.35", }, 
+                { "marker", "marker2b", }, 
+                { "fx", "dmg_cloud_explosion_large", }, 
+                { "fx_scale", "1.5", }, 
+            }, 
+        event46 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.4", }, 
+                { "marker", "marker23", }, 
+                { "fx", "dmg_capital_explosion_large_mushroom", }, 
+                { "sound", "EXPLOSION/MEDIUM/ETG_EXPLODE_MEDIUM_PLASMA", }, 
+                { "fx_scale", "3", }, 
+            }, 
+        event47 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.45", }, 
+                { "marker", "marker24", }, 
+                { "fx", "dmg_cloud_explosion_large", }, 
+                { "fx_scale", "2.5", }, 
+            }, 
+        event48 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.5", }, 
+                { "marker", "marker25", }, 
+                { "fx", "dmg_cloud_explosion_large", }, 
+                { "fx_scale", "3", }, 
+		},
+        event44 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.5", }, 
+                { "marker", "marker26", }, 
+                { "fx", "dmg_capital_explosion_large_mushroom", }, 
+                { "sound", "Explosion/Large/ETG_Explode_Large_Firey", }, 
+                { "fx_scale", "2", }, 
+            }, 
+        event49 = 
+            { 
+                { "anim", "death", }, 
+                { "animtime", "0.6", }, 
+                { "marker", "marker27", }, 
+                { "fx", "dmg_capital_explosion_large", }, 
+                { "fx_scale", "2.5", }, 
+            }, 
+        event50 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.7", }, 
+                { "marker", "Root", }, 
+                { "fx", "dmg_capital_burn_ring", }, 
+                { "sound", "EXPLOSION/LARGE/ETG_EXPLODE_LARGE_PLASMA", }, 
+                { "fx_scale", "2", }, 
+            }, 
+        event51 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.85", }, 
+                { "marker", "Root", }, 
+                { "fx", "dmg_capital_explosion_combo", }, 
+                { "sound", "Explosion/Large/ETG_Explode_Large_Plasma", }, 
+                { "fx_scale", "30", }, 
+                { "fx_sm", "on", }, 
+            }, 
+        event52 = 
+            { 
+                { "anim", "Death", }, 
+                { "animtime", "0.85", }, 
+                { "marker", "Root", }, 
+                { "fx", "DMG_MASSIVE_MESH_SPHERE_RING", }, 
+                { "fx_scale", "1", }, 
+                { "fx_sm", "on", }, 
+            },
+
+	
+	}
+}

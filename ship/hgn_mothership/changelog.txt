@@ -1,0 +1,5 @@
+Bright highlight banding on the front of the ship. CnlPepper suggest its a normal issue. No, known work around as of yet.
+
+-Too bright hangars ~Sky_walker
+
+10/7 - No known issues, badge reintegrated - Sastrei

@@ -1,0 +1,11 @@
+megalith.fp
+* code replaced by updated ship.fp
+* now impliments an incident angle shader for planetary atmospheres
+
+shipglowpass.fp
+* code merged into shiplightbasepassadditive
+* used to impliment parallax mapped per-pixel lighting shader (matte.st)
+
+thrusterglowpass.fp
+* code merged into thrusterlightbasepassadditive
+* used to impliment parallax mapped per-pixel lighting shader (matte.st)

@@ -1,0 +1,19 @@
+$normal
+  -Remember to fill all windows with gray 128, otherwise they look ugly.
+  -All color symbols (texts, other markings) should have color of background to look nice.
+  -http://forums.relicnews.com/showthread.php?p=2982487#post2982487 - remember what evillejedi told, height maps shouldn't exceed too far from gray 128. I make it like that: First normal bump map from black to white, and then using curves I make it more flat by 50%, so that white would be about 174, and black 70. This way it doesn't look plastic.
+  -custom normal maps looks FAR better than those created from desaturated color map
+
+$glow
+ Red channel - Gloss map
+   -all ships should be filled with gray 102, so that they would look in way similar to HW2, and:
+   -black is windows, and other high-glossy elements, so:
+      -fighter windows should have color black
+      -edges of wings or such things can have gray 200 to look nicer (simulates reflection on edge)
+   -white is lack of glossyness
+      -Hiigaran frigate engines (on EXPORT layer there are only tops of it) sections are filled with white.
+      -All windows and area around them should be white
+      -All wires and such should be white
+
+102 - 0.40
+200 - 0.78

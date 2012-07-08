@@ -1,0 +1,6 @@
+http://forums.relicnews.com/showthread.php?p=2976660#post2976660
+^ adamstrange shown that explosions for subsystems were already in HW2, only time for them was set to 0, so we don't see exploding sybsystems in game.
+What would you guys say for adding to our mod exploding subsystems?
+Basicly all we would do would be changing { "animtime", "0", } to some reasonable time.
+On the other hand it should be tested if this doesn't intefrer with saved games, if so then I think we shouldn't add it. If it doesn't than it would be cool feature to include.
+~Sky_walker

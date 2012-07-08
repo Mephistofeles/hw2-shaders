@@ -1,0 +1,7 @@
+- It's lighting is reversed  Tried flipping normals, didn't seem to fix it.
+
+Issue came of bad number of mipmaps used. Try leaving same number what was on old model for each map. I fixed only NOSE map. Also remember about making glow map to fit shaders. ~Sky_walker
+
+What an odd thing to cause that glitch.  Noted, and will pay attention to it in the future.  It was only the Nose map that was having the issues, so that's fine.  By "glow map to fit shaders", are you referring to the gloss channel?  If so, will start adding those in.  -Sastrei
+
+Yup :) ~Sky_walker

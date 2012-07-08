@@ -1,0 +1,4 @@
+Hm... does red markings on this fighter glow in dark? o_O ~Sky_walker
+-After resave with CF3, should be fixed. - Sastrei
+
+10/5 - Reintegrated badge mesh - Sastrei

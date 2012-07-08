@@ -1,0 +1,142 @@
+!!ARBvp1.0
+OPTION ARB_position_invariant;
+
+###########################################################################################
+# Modified by CnlPepper to pass eye and tangent space information to the fragment shaders #
+###########################################################################################
+
+ATTRIB iTex0		= vertex.texcoord[0];
+ATTRIB iTex1		= vertex.texcoord[1];
+ATTRIB iNormal		= vertex.normal;
+ATTRIB iTangent		= vertex.attrib[6];
+ATTRIB iBitangent	= vertex.attrib[7];
+ATTRIB iPos		= vertex.position;
+
+PARAM mv[4]		= { state.matrix.modelview };
+PARAM mvi[4]		= { state.matrix.modelview.inverse };
+PARAM mvit[4]		= { state.matrix.modelview.invtrans };
+PARAM lightDir		= state.light[0].position;
+PARAM miscValues	= { 0, 0.5, 1, 2 };
+
+TEMP temp;
+TEMP tsLight, tsSurfVec;
+TEMP esNormal, esPos;
+
+OUTPUT oColor0		= result.color;
+OUTPUT oTex0		= result.texcoord[0];
+OUTPUT oTex2		= result.texcoord[2];
+OUTPUT oTex3		= result.texcoord[3];
+OUTPUT oTex4		= result.texcoord[4];
+OUTPUT oTex5		= result.texcoord[5];
+
+### TRANSFORM THE LIGHT FROM EYE TO TANGENT SPACE
+
+# eye to object space
+DP3 temp.x, mvi[0], lightDir;
+DP3 temp.y, mvi[1], lightDir;
+DP3 temp.z, mvi[2], lightDir;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+### TRANSFORM EYE-SURFACE VECTOR TO TANGENT SPACE
+
+# method 1: simple, get eye to vertex vector
+SUB temp, iPos, mvit[3];
+
+# method 2: get light vector but reduce scale to prevent potential for variable overflow with distant objects (eg planets)
+#MUL temp, mvit[3], {-0.001}.x;
+#MAD temp, iPos, {0.001}.x, temp;
+
+# object to tangent space
+DP3 tsSurfVec.x, temp, iTangent;
+DP3 tsSurfVec.y, temp, iBitangent;
+DP3 tsSurfVec.z, temp, iNormal;
+
+### TRANSFORM NORMAL FROM OBJECT SPACE TO EYE SPACE
+
+DP3 esNormal.x, mv[0], iNormal;
+DP3 esNormal.y, mv[1], iNormal;
+DP3 esNormal.z, mv[2], iNormal;
+
+### TRANSFORM VERTEX POSITION FROM OBJECT SPACE TO EYE SPACE
+
+DP3 esPos.x, mv[0], iPos;
+DP3 esPos.y, mv[1], iPos;
+DP3 esPos.z, mv[2], iPos;
+
+### EXPORT COMPRESSED LIGHT POSITION (for resourcenm.st)
+
+MAD temp, tsLight, miscValues.y, miscValues.y;
+MOV oColor0, temp;
+
+### OUTPUT TEXTURE COORDINATE
+
+MOV oTex0, iTex0;
+MOV oTex2, tsLight;
+MOV oTex3, tsSurfVec;
+MOV oTex4, esNormal;
+MOV oTex5, esPos;
+
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ----------------------- OLD CODE --------------------------------
+
+
+### TRANSFORM NORMAL FROM OBJECT SPACE TO EYE SPACE
+
+#DP3 eNormal.x, mv[0], iNormal;
+#DP3 eNormal.y, mv[1], iNormal;
+#DP3 eNormal.z, mv[2], iNormal;
+
+### TRANSFORM VERTEX POSITION FROM OBJECT SPACE TO EYE SPACE
+
+#DP3 ePos.x, mv[0], iPos;
+#DP3 ePos.y, mv[1], iPos;
+#DP3 ePos.z, mv[2], iPos;
+
+### TRANSFORM TANGENT FROM OBJECT SPACE TO EYE SPACE
+
+#DP3 eTangent.x, mv[0], iTangent;
+#DP3 eTangent.y, mv[1], iTangent;
+#DP3 eTangent.z, mv[2], iTangent;
+
+### TRANSFORM BITANGENT FROM OBJECT SPACE TO EYE SPACE
+
+#DP3 eBitangent.x, mv[0], iBitangent;
+#DP3 eBitangent.y, mv[1], iBitangent;
+#DP3 eBitangent.z, mv[2], iBitangent;
+
+### EXPORT NORMALS AND VERTEX POSITIONS
+
+#MOV oTex2, eNormal;
+#MOV oTex3, iNormal;
+#MOV oTex4, ePos;
+#MOV oTex5, iPos;
+#MOV oTex6, iTangent; # OBJECT SPACE, DONT FORGET TO CHANGE BACK!!!!
+#MOV oTex7, tsLight;	#iBitangent; # OBJECT SPACE, DONT FORGET TO CHANGE BACK!!!
+
+#END

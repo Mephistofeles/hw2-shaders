@@ -1,0 +1,342 @@
+!!ARBvp1.0
+OPTION ARB_position_invariant;
+
+###########################################################################################
+# Modified by CnlPepper to pass eye and tangent space information to the fragment shaders #
+###########################################################################################
+
+### THIS COULD BE OPTIMISED BY PRE-CALCULATING THE EYE TO TANGENT MATRIX
+
+ATTRIB iTex0		= vertex.texcoord[0];
+ATTRIB iTex1		= vertex.texcoord[1];
+ATTRIB iNormal		= vertex.normal;
+ATTRIB iTangent		= vertex.attrib[6];
+ATTRIB iBitangent	= vertex.attrib[7];
+ATTRIB iPos		= vertex.position;
+
+PARAM mv[4]		= { state.matrix.modelview };
+PARAM mvi[4]		= { state.matrix.modelview.inverse };
+PARAM mvit[4]		= { state.matrix.modelview.invtrans };
+PARAM miscValues	= { 0, 0.5, 1, 2 };
+
+TEMP temp;
+TEMP isPoint;
+TEMP distA, distB, attn;
+TEMP ePos, lightVec;
+TEMP tsLight, tsSurfVec;
+
+### TRANSFORM VERTEX POSITION FROM OBJECT TO EYE SPACE
+
+# require full matrix transform to preserve magnitude
+DP4 ePos.x, mv[0], iPos;
+DP4 ePos.y, mv[1], iPos;
+DP4 ePos.z, mv[2], iPos;
+DP4 ePos.w, mv[3], iPos;
+
+# adjust vector by magnitude in w component
+RCP temp, ePos.w;
+MUL ePos, ePos, temp;
+
+### TRANSFORM LIGHT 0 FROM EYE TO TANGENT SPACE
+
+# surface-light vector, checking if light is point or distant
+SLT isPoint, -state.light[0].position.w, 0;
+MUL temp, isPoint, ePos;
+SUB lightVec, state.light[0].position, temp;
+
+# eye to object space
+DP3 temp.x, mvi[0], lightVec;
+DP3 temp.y, mvi[1], lightVec;
+DP3 temp.z, mvi[2], lightVec;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+# attenuation
+DP3 distA, lightVec, lightVec; 
+RSQ distB, distA.x;
+DST temp, distA, distB;
+DP3 temp, temp, state.light[0].attenuation;
+RCP tsLight.w, temp.x;
+
+# output
+MOV result.texcoord[0], tsLight;
+
+### TRANSFORM LIGHT 1 FROM EYE TO TANGENT SPACE, DISABLE IF NOT A POINT LIGHT
+
+# surface-light vector, checking if light is point or distant
+SLT isPoint, -state.light[1].position.w, 0;
+MUL temp, isPoint, ePos;
+SUB lightVec, state.light[1].position, temp;
+
+# eye to object space
+DP3 temp.x, mvi[0], lightVec;
+DP3 temp.y, mvi[1], lightVec;
+DP3 temp.z, mvi[2], lightVec;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+# attenuation
+DP3 distA, lightVec, lightVec; 
+RSQ distB, distA.x;
+DST temp, distA, distB;
+DP3 temp, temp, state.light[1].attenuation;
+RCP tsLight.w, temp.x;
+MUL tsLight.w, isPoint, tsLight.w;
+
+# output
+MOV result.texcoord[1], tsLight;
+
+### TRANSFORM LIGHT 2 FROM EYE TO TANGENT SPACE
+
+# surface-light vector
+SLT isPoint, -state.light[2].position.w, 0;
+MUL temp, isPoint, ePos;
+SUB lightVec, state.light[2].position, temp;
+
+# eye to object space
+DP3 temp.x, mvi[0], lightVec;
+DP3 temp.y, mvi[1], lightVec;
+DP3 temp.z, mvi[2], lightVec;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+# attenuation
+DP3 distA, lightVec, lightVec; 
+RSQ distB, distA.x;
+DST temp, distA, distB;
+DP3 temp, temp, state.light[2].attenuation;
+RCP tsLight.w, temp.x;
+MUL tsLight.w, isPoint, tsLight.w;
+
+# output
+MOV result.texcoord[2], tsLight;
+
+### TRANSFORM LIGHT 3 FROM EYE TO TANGENT SPACE, DISABLE IF NOT A POINT LIGHT
+
+# surface-light vector
+SLT isPoint, -state.light[3].position.w, 0;
+MUL temp, isPoint, ePos;
+SUB lightVec, state.light[3].position, temp;
+
+# eye to object space
+DP3 temp.x, mvi[0], lightVec;
+DP3 temp.y, mvi[1], lightVec;
+DP3 temp.z, mvi[2], lightVec;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+# attenuation
+DP3 distA, lightVec, lightVec; 
+RSQ distB, distA.x;
+DST temp, distA, distB;
+DP3 temp, temp, state.light[3].attenuation;
+RCP tsLight.w, temp.x;
+
+# output
+MOV result.texcoord[3], tsLight;
+
+### TRANSFORM LIGHT 4 FROM EYE TO TANGENT SPACE, DISABLE IF NOT A POINT LIGHT
+
+# surface-light vector
+SLT isPoint, -state.light[4].position.w, 0;
+MUL temp, isPoint, ePos;
+SUB lightVec, state.light[4].position, temp;
+
+# eye to object space
+DP3 temp.x, mvi[0], lightVec;
+DP3 temp.y, mvi[1], lightVec;
+DP3 temp.z, mvi[2], lightVec;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+# attenuation
+DP3 distA, lightVec, lightVec; 
+RSQ distB, distA.x;
+DST temp, distA, distB;
+DP3 temp, temp, state.light[4].attenuation;
+RCP tsLight.w, temp.x;
+
+# output
+MOV result.texcoord[4], tsLight;
+
+### TRANSFORM LIGHT 5 FROM EYE TO TANGENT SPACE, DISABLE IF NOT A POINT LIGHT
+
+# surface-light vector
+SLT isPoint, -state.light[5].position.w, 0;
+MUL temp, isPoint, ePos;
+SUB lightVec, state.light[5].position, temp;
+
+# eye to object space
+DP3 temp.x, mvi[0], lightVec;
+DP3 temp.y, mvi[1], lightVec;
+DP3 temp.z, mvi[2], lightVec;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+# attenuation
+DP3 distA, lightVec, lightVec; 
+RSQ distB, distA.x;
+DST temp, distA, distB;
+DP3 temp, temp, state.light[5].attenuation;
+RCP tsLight.w, temp.x;
+
+# output
+MOV result.texcoord[5], tsLight;
+
+### TRANSFORM LIGHT 6 FROM EYE TO TANGENT SPACE, DISABLE IF NOT A POINT LIGHT
+
+# surface-light vector
+SLT isPoint, -state.light[6].position.w, 0;
+MUL temp, isPoint, ePos;
+SUB lightVec, state.light[6].position, temp;
+
+# eye to object space
+DP3 temp.x, mvi[0], lightVec;
+DP3 temp.y, mvi[1], lightVec;
+DP3 temp.z, mvi[2], lightVec;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+# attenuation
+DP3 distA, lightVec, lightVec; 
+RSQ distB, distA.x;
+DST temp, distA, distB;
+DP3 temp, temp, state.light[6].attenuation;
+RCP tsLight.w, temp.x;
+
+# output, pack into primary colour channel
+DP3 temp, tsLight, tsLight; 
+RSQ temp, temp.x;
+MUL tsLight.xyz, tsLight, temp;
+MAD result.color.primary, tsLight, {0.5, 0.5, 0.5, 1}, {0.5, 0.5, 0.5, 0};
+
+### TRANSFORM LIGHT 7 FROM EYE TO TANGENT SPACE, DISABLE IF NOT A POINT LIGHT
+
+# surface-light vector
+SLT isPoint, -state.light[7].position.w, 0;
+MUL temp, isPoint, ePos;
+SUB lightVec, state.light[7].position, temp;
+
+# eye to object space
+DP3 temp.x, mvi[0], lightVec;
+DP3 temp.y, mvi[1], lightVec;
+DP3 temp.z, mvi[2], lightVec;
+
+# object to tangent space
+DP3 tsLight.x, temp, iTangent;
+DP3 tsLight.y, temp, iBitangent;
+DP3 tsLight.z, temp, iNormal;
+
+# attenuation
+DP3 distA, lightVec, lightVec; 
+RSQ distB, distA.x;
+DST temp, distA, distB;
+DP3 temp, temp, state.light[7].attenuation;
+RCP tsLight.w, temp.x;
+
+# output, pack into secondary colour channel
+DP3 temp, tsLight, tsLight; 
+RSQ temp, temp.x;
+MUL tsLight.xyz, tsLight, temp;
+MAD result.color.secondary, tsLight, {0.5, 0.5, 0.5, 1}, {0.5, 0.5, 0.5, 0};
+
+### TRANSFORM EYE-SURFACE VECTOR TO TANGENT SPACE
+
+# method 1: simple, get eye to vertex vector
+SUB temp, iPos, mvit[3];
+
+# method 2: get light vector but reduce scale to prevent potential for variable overflow with distant objects (eg planets)
+#MUL temp, mvit[3], {-0.001}.x;
+#MAD temp, iPos, {0.001}.x, temp;
+
+# object to tangent space
+DP3 tsSurfVec.x, temp, iTangent;
+DP3 tsSurfVec.y, temp, iBitangent;
+DP3 tsSurfVec.z, temp, iNormal;
+
+### ADDITIONAL OUTPUT
+
+MOV result.texcoord[6], iTex0;
+MOV result.texcoord[7], tsSurfVec;
+
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ----------------------- OLD CODE --------------------------------
+
+
+### TRANSFORM NORMAL FROM OBJECT SPACE TO EYE SPACE
+
+#DP3 eNormal.x, mv[0], iNormal;
+#DP3 eNormal.y, mv[1], iNormal;
+#DP3 eNormal.z, mv[2], iNormal;
+
+### TRANSFORM VERTEX POSITION FROM OBJECT SPACE TO EYE SPACE
+
+#DP3 ePos.x, mv[0], iPos;
+#DP3 ePos.y, mv[1], iPos;
+#DP3 ePos.z, mv[2], iPos;
+
+### TRANSFORM TANGENT FROM OBJECT SPACE TO EYE SPACE
+
+#DP3 eTangent.x, mv[0], iTangent;
+#DP3 eTangent.y, mv[1], iTangent;
+#DP3 eTangent.z, mv[2], iTangent;
+
+### TRANSFORM BITANGENT FROM OBJECT SPACE TO EYE SPACE
+
+#DP3 eBitangent.x, mv[0], iBitangent;
+#DP3 eBitangent.y, mv[1], iBitangent;
+#DP3 eBitangent.z, mv[2], iBitangent;
+
+### EXPORT NORMALS AND VERTEX POSITIONS
+
+#MOV oTex2, eNormal;
+#MOV oTex3, iNormal;
+#MOV oTex4, ePos;
+#MOV oTex5, iPos;
+#MOV oTex6, iTangent; # OBJECT SPACE, DONT FORGET TO CHANGE BACK!!!!
+#MOV oTex7, tsLight;	#iBitangent; # OBJECT SPACE, DONT FORGET TO CHANGE BACK!!!
+
+#END

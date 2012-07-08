@@ -1,0 +1,30 @@
+LOD distance increase:
+
+Fighters/corvettes - no change
+Frigates - x2
+Destroyers up - x4
+
+How to?
+  increase value of NewShipType.upLOD and NewShipType.downLOD
+  eg:
+   NewShipType.upLOD = 2000
+   NewShipType.upLOD = 2500
+   NewShipType.downLOD = 2015
+   NewShipType.downLOD = 2515
+  should be changed to:
+   NewShipType.upLOD = 4000
+   NewShipType.upLOD = 5000
+   NewShipType.downLOD = 4030
+   NewShipType.downLOD = 5030
+
+
+
+ps. How about increasing view distance (not LODs, but how far camera see)? Good idea? How to make it?
+Sky_walker
+
+>>><<<
+
+I agree with the notion of increasing LOD distances, also add the motherships to the list.  I'll start testing out these values when I get a chance with the vgr stuff.
+
+Disagree with increasing view distance, would upset some gameplay issues I think.
+- Hm... well... could make gameplay somewhat easier... well... ok, we may resign from increased view distance. ~Sky_walker

@@ -1,0 +1,5 @@
+Put here codenames of ships which have Badges done. Whole the rest needs work.
+
+- hgn_ionturret
+- hgn_ioncannonfrigate
+- hgn_battlecruiser

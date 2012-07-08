@@ -1,0 +1,47 @@
+Note on HW2 Shaders - CnlPepper - 28/03/08
+------------------------------------------------
+
+This is a short summary of what I have figured out about the ARB rendering path of the HW2 renderer.
+
+The OpenGL ARB vertex/fragment path is what is used to render game elements on the most advanced graphics cards at the time of HW2. Basically any card which supports Shader Model 2.0, eg NVidia cards 5xxx and up (though due to problems with the 5xxx series Relic disabled support for these cards in the  ARB path, apparently). For all modern GFX cards these are the shaders you will need to alter.
+
+The shaders take 3 parts stored in the following folders:
+
+	HW2:data/shaders/vp_arb
+	HW2:data/shaders/fragment_program
+	HW2:data/shaders/fp_arb
+	
+The vp_arb holds the arb assembly vertex shaders, the fragment_program and fp_arb folders hold the fragment shaders. fp_arb contains ARB fragment assembly programs while fragment_program holds *.st files which are Relic's own shading control language (essentially wrappers around OpenGL commands).
+
+Regarding the ship shaders I have discovered the following:
+
+* the ship*.vp files are obsolete and can not be used. All the ship rendering is hardcoded, but can be overridden using one of the asteroid vertex programs.
+
+* the relavent fragment shader is called once the vp shading is processed. The hod file determines which shader is run.
+
+* HW2 appears to use a basic shader (ship.st) for rendering at medium to far distances of the camera from the ship. On close-ups a much more complicated system is employed. ship.st is no longer used, instead rendering starts with shiplight.st. The results of which are then used in a second shader shipadditivelight.st.
+
+The *.st files control the opengl buffers and the order of execution of the fragment programs referenced inside them. Note the fragment program names have FragmentProgram appended to them in the setFragmentProgram call. They also control, amoung other opengl settings, the source and destination buffer blending configuration. The fragment programs operated in each step render into the source buffer, and previous renders from an earlier stage are carried forward into the destination buffer. If "setCap blendCap true" is present then the opengl source-destination buffer blending system is used. The exact blending is set with srcBlend and destBlend which directly wrap the opengl glBlendFunc command. The arguments for these functions take their names from the glBlendFunc parameter names (see http://www.khronos.org/opengles/documentation/opengles1_1/gl_egl_ref_1_1_20041110/glBlendFunc.html).
+
+Essentially each fragment program is called in turn and the results of each stage are blended into the destination buffer.
+
+The ship shaders
+-----------------
+
+For medium to far distances rendering is performed with ship.st. This is a simple, single fragment program script which does not render shadows.
+
+For close distances shiplight.sh is run first (if shadows are enabled) to calculated the shadow map and the lighting from light 0. shipadditivelight.st. is the run with the results of the shiplight.sh shader sitting in the destination buffer. This then adds the contribution from any additional lights and multiplies the whole lot with the base colour textures.
+
+
+Notes on ship detail shaders:
+-----------------------------
+
+The lighting shaders (shiplight.st, badgelight.st, thrusterlight.st etc...) are run first placing their results in the output buffer. In normal HW2 this stage performs the shadow and main light calculations, but does not include the base ship colour. All light calculations for the main light are passed to the shaders.
+
+The additional light shaders (shipadditivelight.st, badgeadditivelight.st, thrusteradditivelight.st etc...) run second and combine additional lights, the colour pass and fog with the results of the light shaders to create the final shading. All light calculations for the additional lights (non-main) are passed to the shaders.
+
+When modifiying the lighting shaders you must never texturebind a texture to texture unit 0 (ie textureBind 0 $diffuse) as this will overwrite the shadow trexture calculated and passed by the HW2 executable. The effect will be to destroy the shadow map for subsequent passes. The shading will therefore become corrupted.
+
+It appears that the badge or mask texture textures can not be passed to the light shaders. Therefore badges can not be per-pixel shaded with a bright specular.
+
+You are limited to 4 textures per shader. 3 for the *light.st shaders due to texture unit 0 being used by the shadow texture.

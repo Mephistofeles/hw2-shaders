@@ -1,0 +1,3 @@
+Short note: Some of ships appear to have too 'bumpy' bump maps ;) Hope you get what I mean.... good example of bump maps is Hiigaran Mothership, bad is interior of Bentus or Vaygr Destroyer. Try checking ships in game, if they look cool, leave as it is, if they look ugly - try lowering difference between white and black, and then recreate normal maps. It will look far better :)
+
+Also remember that _all_ lights on capships should be filled with gray 128! Otherwise they look damn ugly. ~Sky_walker

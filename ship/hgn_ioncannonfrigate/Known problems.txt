@@ -1,0 +1,3 @@
+
+$normal:
+ upper vent seems to bend at some point (on left side).

@@ -1,0 +1,9 @@
+shipbasewithbadgepass.fp
+* could not impliment badges per-pixel due to mask and badge textures not being passed to the fragment_program/badgelight.st shader. Code removed for now
+.
+megalithglowpass.fp
+* code now redundant, relavent code is already in ship.fp
+
+badge.fp
+* still used, but could be replaced with ship.fp as badges have been disabled. See comment for shipbasewithbadgepass.fp.
+

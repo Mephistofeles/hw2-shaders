@@ -1,0 +1,4 @@
+
+$normal:
+ 'Segments' in front of the ship don't want to fit - mirrored site has them moved a bit on some angles of camera, even when normal map is [128] there.
+

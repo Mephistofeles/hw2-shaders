@@ -1,0 +1,3 @@
+- Green specular glow on bottom of shipyard
+
+- Normals may be too exaggerated?

@@ -1,0 +1,5 @@
+The parallax shader:
+
+Only the main light and glow are correctly parallax shifted. The additional lights are not as it is not possible (without kludging) to make a vertex program that can dynamically handle the changing number of possible source lights.
+
+A solution might be found if the unassigned lights have a common and exploitable feature (eg are always at 0,0,0 relative to the object or similar). This will be explored.
